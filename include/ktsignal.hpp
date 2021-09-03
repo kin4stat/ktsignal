@@ -6,6 +6,7 @@
 #include <shared_mutex>
 #include <mutex>
 #include <tuple>
+#include <iterator>
 
 namespace ktsignal {
     struct empty_mutex {
@@ -115,8 +116,11 @@ namespace ktsignal {
 #endif
 
         public:
+            using iterator_category = std::input_iterator_tag;
             using difference_type = std::ptrdiff_t;
             using value_type = typename slot_type::result_type;
+            using pointer = typename slot_type::result_type*;
+            using reference = typename slot_type::result_type&;
 
             signal_iterator(slot_iterator iter, mutex_type& slots_mutex, std::tuple<CallArgs&&...>& tup) :
                 slots_mutex_(slots_mutex), iter_(iter),
