@@ -157,7 +157,7 @@ void func_thread(int v) {
 }
 
 int main() {
-    ktsignal::ktsignal_threadsafe_emit<int(std::string&)> signal{};
+    ktsignal::ktsignal_threadsafe<int(std::string&)> signal{};
 
     signal.connect(func_thread);
 
