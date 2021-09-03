@@ -91,7 +91,7 @@ namespace ktsignal {
         template <typename... CallArgs>
         class signal_iterator {
 
-#if __cpp_lib_apply < 201603L || 1
+#if __cpp_lib_apply < 201603L
             template <int... Is>
             struct index {};
 
@@ -124,7 +124,7 @@ namespace ktsignal {
 
             value_type operator*() {
                 emit_locker lock(slots_mutex_);
-#if __cpp_lib_apply >= 201603L && 0
+#if __cpp_lib_apply >= 201603L
                 return std::apply(*iter_, stored_args);
 #else
                 return iter_call(*iter_, stored_args);
