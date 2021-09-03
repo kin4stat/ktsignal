@@ -178,13 +178,13 @@ int main() {
     std::this_thread::sleep_for(1.5s);
 }
 ```
+
+```
 Output:
 [func_thread] - before sleep
 [func_thread] - before sleep
 [func_thread] - after sleep
 [func_thread] - after sleep
-```
-
 ```
 
 You can also use the `ktsignal_threadsafe_emit` when you need to make the emit function blocking.
