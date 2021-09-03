@@ -1,4 +1,4 @@
-# HHelper (x86)
+# ktsignal
 
 A single header signal library
 
