@@ -81,6 +81,11 @@ namespace ktsignal {
             return scoped_connect([ptr, func](Args&&... args) -> R { return (ptr->*func)(std::forward<Args>(args)...); });
         }
 
+        ktsignal_impl& operator+=(slot_type slot) {
+            connect(slot);
+            return *this;
+        }
+        
         template <typename... Args>
         void emit(Args&&... args) {
             emit_locker lock(slots_mutex);
