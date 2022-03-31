@@ -36,6 +36,11 @@ namespace ktsignal {
             ktsignal_connection(std::function<void()> func) : erase_func(func) {};
             ktsignal_connection(ktsignal_connection&) = delete;
             ktsignal_connection(ktsignal_connection&&) = default;
+
+            ktsignal_connection& operator=(ktsignal_connection&) = delete;
+            ktsignal_connection& operator=(ktsignal_connection&&) = default;
+
+            ~ktsignal_connection() = default;
         private:
             std::function<void()> erase_func;
         };
@@ -47,6 +52,9 @@ namespace ktsignal {
             ktsignal_scoped_connection(std::function<void()> func) : ktsignal_connection(func) {};
             ktsignal_scoped_connection(ktsignal_scoped_connection&) = delete;
             ktsignal_scoped_connection(ktsignal_scoped_connection&& Right) = default;
+
+            ktsignal_scoped_connection& operator=(ktsignal_scoped_connection&) = delete;
+            ktsignal_scoped_connection& operator=(ktsignal_scoped_connection&&) = default;
         };
 
         ktsignal_connection connect(slot_type slot) {
