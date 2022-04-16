@@ -68,17 +68,6 @@ namespace ktsignal {
             };
             return ktsignal_connection{ std::move(lambda) };
         }
-        ktsignal_connection connect(FuncSig* slot) {
-            std::unique_lock<mutex_type> lock(slots_mutex);
-
-            auto erase_iter = slots_.emplace(slots_.end(), slot);
-
-            std::function<void()> lambda = [&slots_mutex = this->slots_mutex, &slots_ = this->slots_, erase_iter]() -> void {
-                std::unique_lock<mutex_type> lock(slots_mutex);
-                slots_.erase(erase_iter);
-            };
-            return ktsignal_connection{ std::move(lambda) };
-        }
         ktsignal_scoped_connection scoped_connect(slot_type slot) {
             std::unique_lock<mutex_type> lock(slots_mutex);
 
@@ -90,18 +79,7 @@ namespace ktsignal {
             };
             return ktsignal_scoped_connection{ std::move(lambda) };
         }
-        ktsignal_scoped_connection scoped_connect(FuncSig* slot) {
-            std::unique_lock<mutex_type> lock(slots_mutex);
-
-            auto erase_iter = slots_.emplace(slots_.end(), slot);
-
-            std::function<void()> lambda = [&slots_mutex = this->slots_mutex, &slots_ = this->slots_, erase_iter]() -> void {
-                std::unique_lock<mutex_type> lock(slots_mutex);
-                slots_.erase(erase_iter);
-            };
-            return ktsignal_scoped_connection{ std::move(lambda) };
-        }
-
+        
         template <class C, typename R, typename... Args>
         ktsignal_connection connect(C* ptr, R(C::* func)(Args...)) {
             return connect([ptr, func](Args&&... args) -> R { return (ptr->*func)(std::forward<Args>(args)...); });
