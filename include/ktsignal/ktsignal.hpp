@@ -115,10 +115,6 @@ namespace ktsignal {
             connect(slot);
             return *this;
         }
-        ktsignal_impl& operator+=(FuncSig* slot) {
-            connect(slot);
-            return *this;
-        }
         
         template <typename... Args>
         void emit(Args&&... args) {
